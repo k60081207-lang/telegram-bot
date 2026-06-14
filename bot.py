@@ -89,17 +89,11 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
-    # Використовуємо правильний метод підключення
     application = Application.builder().token(TELEGRAM_TOKEN).build()
-    
-    # Додаємо ваші команди та обробник повідомлень
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("clear", clear))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    
     print("🤖 Бот успішно запущений...")
-    
-    # Запуск бота
     application.run_polling()
 
 if __name__ == "__main__":
