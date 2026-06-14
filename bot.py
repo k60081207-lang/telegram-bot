@@ -1,8 +1,8 @@
 import os
-import google.generativeai as genai
+import asyncio
+import logging
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
-from telegram.ext import Application, CommandHandler, MessageHandler, filters
+from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 # ==============================
 # Ключі тепер підтягуються автоматично з налаштувань Railway
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
