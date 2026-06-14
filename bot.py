@@ -2,7 +2,7 @@ import os
 import google.generativeai as genai
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
-
+from telegram.ext import Application, CommandHandler, MessageHandler, filters
 # ==============================
 # Ключі тепер підтягуються автоматично з налаштувань Railway
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
@@ -88,20 +88,18 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
-    app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("clear", clear))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    print("✅ Бот запущено!")
-    app.run_polling()
-
-
-if __name__ == "__main__":
+    # Використовуємо правильний метод підключення
+    application = Application.builder().token(TELEGRAM_TOKEN).build()
+    
+    # Додаємо ваші команди та обробник повідомлень
+    application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("clear", clear))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    
+    print("🤖 Бот успішно запущений...")
+    
     # Запуск бота
-    app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
-    
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    
-    print("Бот успішно запущений...")
-    app.run_polling()
+    application.run_polling()
+
+if name == "__main__":
+    main()
